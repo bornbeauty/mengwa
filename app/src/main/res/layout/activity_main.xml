@@ -8,12 +8,11 @@
     <com.jimbo.mengwa.widget.MultiSwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-            android:id="@+id/pullLoadMoreRecyclerView"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mengWaWaRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp" />
-
     </com.jimbo.mengwa.widget.MultiSwipeRefreshLayout>
+
 </LinearLayout>

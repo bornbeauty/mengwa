@@ -12,6 +12,7 @@ import java.util.List;
  */
 @Table(name = "images")
 public class Image {
+
     @Id
     @Column(column = "url")
     public String url;
@@ -23,4 +24,6 @@ public class Image {
     public String time;
     @Column(column = "detailUrl")
     public List<String> detailUrl;
+    @Column(column = "shunxu")
+    public int shunxu;
 }

@@ -1,6 +1,7 @@
 package com.jimbo.mengwa.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import com.jimbo.mengwa.R;
 import com.jimbo.mengwa.data.Image;
+import com.jimbo.mengwa.ui.ImageActivity;
+import com.jimbo.mengwa.ui.MainActivity;
 import com.jimbo.mengwa.widget.RatioImageView;
 import com.lidroid.xutils.BitmapUtils;
 
@@ -21,7 +24,17 @@ import java.util.List;
  */
 public class MengWaWaRecycleAdapter extends RecyclerView.Adapter<MengWaWaRecycleAdapter.ViewHolder>{
 
+    //0 代表下一页的布局
+    //1 代表正常的图片布局
+    private static final int TYPE_NEXT = 0;
+    private static final int TYPE_NORMAL = 1;
+
+    //参数名称
+    public static final String IMAGE_NAME = "IMAGE_NAME";
+
     private Context mContext;
+
+
     private List<Image> images;
 
     private BitmapUtils bitmapUtils;
@@ -31,7 +44,6 @@ public class MengWaWaRecycleAdapter extends RecyclerView.Adapter<MengWaWaRecycle
         this.mContext = mContext;
         this.images = images;
         bitmapUtils = new BitmapUtils(mContext);
-//        bitmapUtils.
     }
 
     @Override
@@ -43,25 +55,48 @@ public class MengWaWaRecycleAdapter extends RecyclerView.Adapter<MengWaWaRecycle
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Image image = images.get(position);
-        holder.image = image;
-        holder.title.setText(image.time + image.title);
-        holder.wawa.setImageResource(R.mipmap.ic_launcher);
-        bitmapUtils.display(holder.wawa,
-                image.thumbnailUrl);
+        if (getItemViewType(position) == TYPE_NORMAL) {
+            Image image = images.get(position);
+            holder.image = image;
+            holder.title.setText(image.title);
+            holder.wawa.setImageResource(R.mipmap.ic_launcher);
+            bitmapUtils.display(holder.wawa,
+                    image.thumbnailUrl);
+
+            System.out.println("adapter-"+image.thumbnailUrl+"-position"+position
+                +"count"+getItemCount());
+
+        } else {
+            Image image = new Image();
+            image.shunxu = -1;
+            holder.image = image;
+            holder.title.setText("下一页");
+            holder.wawa.setImageResource(R.mipmap.next);
+        }
+    }
+
+    //因为多了一个下一页布局
+    @Override
+    public int getItemCount() {
+        return images.size() + 1;
     }
 
     @Override
-    public int getItemCount() {
-        return images.size();
+    public int getItemViewType(int position) {
+        if (getItemCount() == (position + 1)) {
+            return TYPE_NEXT;
+        } else {
+            return TYPE_NORMAL;
+        }
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         RatioImageView wawa;
-
         TextView title;
-
         Image image;
 
         public ViewHolder(View itemView) {
@@ -72,7 +107,15 @@ public class MengWaWaRecycleAdapter extends RecyclerView.Adapter<MengWaWaRecycle
         }
         @Override
         public void onClick(View v) {
-            Toast.makeText(mContext, image.shunxu+image.url, Toast.LENGTH_SHORT).show();
+            if (-1 == image.shunxu) {
+
+                MainActivity.mMainActivity.loadNextPage();
+
+            } else {
+                Intent intent = new Intent(mContext, ImageActivity.class);
+                intent.putExtra(IMAGE_NAME, image);
+                mContext.startActivity(intent);
+            }
         }
     }
 }

@@ -39,7 +39,6 @@ public class MengWaWaRecycleAdapter extends RecyclerView.Adapter<MengWaWaRecycle
 
     private BitmapUtils bitmapUtils;
 
-
     public MengWaWaRecycleAdapter(Context mContext, List<Image> images) {
         this.mContext = mContext;
         this.images = images;

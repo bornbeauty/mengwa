@@ -2,11 +2,24 @@
     <string name="app_name">萌  哇</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">关于</string>
     <string name="action_share">分享给朋友</string>
     <string name="sample_progress">1/2</string>
     <string name="viewpager_indicator">%1$d/%2$d</string>
-    <string name="introduce">萌哇-有你想要的萌宝宝</string>
+    <string name="introduce">萌哇-有你想要的萌宝宝\n\n数据来源于 Q友乐园网 www.qzone.cc,截取了可爱-萝莉图片下的数据\n\n每天不定时更新一些萌萌哒的图片 点击缩略图 查看所有图片\n\n支持多种手势控制\n1.左右滑动切换图片\n2.点击图片退出详细页面\n3.双击图片可以放大\n可以保存图片到手机本地 随时查看\n可以分享给朋友 一起萌萌哒\n\n我的 GitHub: https://github.com/Jimbo-zjb\n\n完全开源,最佳的源代码,最佳的学习软件,如果你觉得不错,可以帮忙分享给你更多的朋友,,或者请我喝一杯咖啡(所谓的捐赠或打赏QAQ),非常感谢!\n\n支付宝：15564136252 (长按可选中复制)
+
+    </string>
     <string name="share_text">发现一个有无数萌宝宝的APP,每天都有各种萌宝宝登场
-    ,快来下载试试吧!</string>
+    ,快来下载试试吧! http://www.pgyer.com/mengwa </string>
+    <string name="app_name_with_introduce">萌哇 - You are all you are the world</string>
+    <string name="introduce_and_help">介绍与帮助</string>
+    <string name="developers">开发人员</string>
+
+    <string name="developer_and_designer">主要 Android 开发 &amp; 设计</string>
+
+    <string name="developer_service">主要服务端开发</string>
+    <string name="open_source_lis">用到的开源库</string>
+    <string name="share">分享给朋友（谢谢QAQ）</string>
+    <string name="open_source_libraries_list">com.android.support:appcompat-v7:22.2.1\ncom.jiechic.library:xUtils:2.6.14\ncom.umeng.analytics:analytics:latest.integration\norg.jsoup:jsoup:1.8.3\ncom.android.support:recyclerview-v7:22.2.1\ncom.commit451:PhotoView:1.2.4\numeng-update-v2.6.0.1.jar\ncom.android.support:design:22.2.0
+    </string>
 </resources>

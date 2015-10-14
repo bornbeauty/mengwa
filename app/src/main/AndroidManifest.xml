@@ -32,6 +32,8 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
+        <activity android:name=".ui.AboutActivity" />
+
         <service
             android:name="com.umeng.update.net.DownloadingService"
             android:process=":DownloadingService" >

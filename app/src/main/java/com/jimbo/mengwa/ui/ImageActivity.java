@@ -14,6 +14,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +72,9 @@ public class ImageActivity extends BaseActivity {
 
     private int mCurrentImage = 0;
 
+    @ViewInject(R.id.progressBar)
+    ProgressBar mProgressBar;
+
     Image image;
 
     @Override
@@ -80,9 +85,12 @@ public class ImageActivity extends BaseActivity {
 
         ViewUtils.inject(this);
 
+        //显示进度条
+        mProgressBar.setVisibility(View.VISIBLE);
+
         image = (Image) getIntent().getSerializableExtra(MengWaWaRecycleAdapter.IMAGE_NAME);
         if (null == image) {
-            Toast.makeText(ImageActivity.this, "nothing-", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ImageActivity.this, "程序错误 请重试", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -239,6 +247,7 @@ public class ImageActivity extends BaseActivity {
         }
 
         setAdapterToPager(urls);
+        mProgressBar.setVisibility(View.GONE);
         System.out.println("test-调用save");
         //saveUrls(urls);
     }

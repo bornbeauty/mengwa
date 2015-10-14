@@ -1,5 +1,6 @@
 package com.jimbo.mengwa.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +21,7 @@ import com.jimbo.mengwa.R;
 import com.jimbo.mengwa.data.Image;
 import com.jimbo.mengwa.ui.adapter.MengWaWaRecycleAdapter;
 import com.jimbo.mengwa.ui.base.BaseActivity;
+import com.jimbo.mengwa.utils.SnackbarUtils;
 import com.jimbo.mengwa.widget.MultiSwipeRefreshLayout;
 import com.lidroid.xutils.DbUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -84,18 +86,6 @@ public class MainActivity extends BaseActivity {
         mMainActivity = this;
 
         ViewUtils.inject(this);
-
-
-        Snackbar.make(mMainLinearLayout,
-                "I am a SnackBar",
-                Snackbar.LENGTH_LONG)
-                .setAction("YO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                })
-                .show();
 
         init();
 
@@ -167,6 +157,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(HttpException e, String s) {
+                        SnackbarUtils.showSnackbar(mMainLinearLayout, "网络有问题 请重试");
                     }
                 });
     }
@@ -209,14 +200,14 @@ public class MainActivity extends BaseActivity {
                 try {
                     dbUtils.save(image);
                 } catch (Exception e) {
-
+//                    SnackbarUtils.showSnackbar(mMainLinearLayout, "内部错误 请稍后重试");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            SnackbarUtils.showSnackbar(mMainLinearLayout, "内部错误 请稍后重试");
         }
         string_test = "前\n";
-//        Toast.makeText(MainActivity.this, "qian", Toast.LENGTH_SHORT).show();
         print(mImages, false);
         changeData();
     }
@@ -228,7 +219,8 @@ public class MainActivity extends BaseActivity {
                     orderBy("shunxu", true));
 
             if (null == image) {
-                Toast.makeText(MainActivity.this, "数据库为空", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "数据库为空", Toast.LENGTH_SHORT).show();
+                SnackbarUtils.showSnackbar(mMainLinearLayout, "网络不畅 请稍后重试");
                 return;
             }
             try {
@@ -239,6 +231,7 @@ public class MainActivity extends BaseActivity {
             changeData();
         } catch (DbException e) {
             e.printStackTrace();
+            SnackbarUtils.showSnackbar(mMainLinearLayout, "内部错误 请稍后重试");
         }
     }
 
@@ -299,6 +292,7 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -3,12 +3,15 @@ package com.jimbo.mengwa.ui;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.umeng.update.UmengUpdateAgent;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -69,6 +73,9 @@ public class MainActivity extends BaseActivity {
     @ViewInject(R.id.toolbar)
     private Toolbar mToolbar;
 
+    @ViewInject(R.id.main_linearlayout)
+    LinearLayout mMainLinearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -78,7 +85,28 @@ public class MainActivity extends BaseActivity {
 
         ViewUtils.inject(this);
 
+
+        Snackbar.make(mMainLinearLayout,
+                "I am a SnackBar",
+                Snackbar.LENGTH_LONG)
+                .setAction("YO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .show();
+
         init();
+
+        setUmengUpdate();
+    }
+
+    private void setUmengUpdate() {
+
+        //友盟自动更新
+        UmengUpdateAgent.update(this);
+        UmengUpdateAgent.setDeltaUpdate(true);
 
     }
 
